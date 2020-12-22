@@ -3,6 +3,7 @@ package com.brunomnsilva.smartgraph;
 import java.util.ArrayList;
 import com.brunomnsilva.smartgraph.graphview.SmartGraphPanel;
 import com.brunomnsilva.smartgraph.graph.Graph;
+import com.brunomnsilva.smartgraph.graphview.SmartStylableNode;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -24,7 +25,7 @@ import com.brunomnsilva.smartgraph.graphview.SmartCircularSortedPlacementStrateg
  */
 public class Main extends Application {
 
-    Scene home_scene,insert_nodesSize_scene,nodeName_scene;
+    Scene home_scene,insert_nodesSize_scene,nodeName_scene,welcome_scene;
 
     TableView<Arete> table;
 
@@ -179,9 +180,13 @@ public class Main extends Application {
 
             });
         });
-
+        //welcome_scene + layout + button+ label
+        Label label_welcome_scene = new Label("Kruskal's Algorithme");
+        Button begin_button_welcome_scene = new Button("Begin");
+        VBox layout_welcome_scene = new VBox(20);
+        layout_welcome_scene.getChildren().addAll(label_welcome_scene,begin_button_welcome_scene);
+        welcome_scene = new Scene(layout_welcome_scene, 512,340);
         VBox layout_scene1 = new VBox(20);
-
         layout_scene1.getChildren().addAll(table, source, nodesList_source, destination, nodesList_destination, poids_textField, add_btn, delete_btn, run_algo);
         home_scene = new Scene(layout_scene1, 800, 600);
 
@@ -193,7 +198,7 @@ public class Main extends Application {
         layout_nodeName_scene.getChildren().addAll(label_nodeName_scene, nodeName_textField, nodeName_add_item, nodeName_scene_btn);
         nodeName_scene = new Scene(layout_nodeName_scene, 800, 600);
 
-        primaryStage.setScene(insert_nodesSize_scene);
+        primaryStage.setScene(welcome_scene);
         primaryStage.show();
     }
 

@@ -29,7 +29,6 @@ public class AlertBox {
 
         VBox layout = new VBox(20);
         layout.getChildren().addAll(label,close_btn);
-
         Scene scene = new Scene(layout);
 
         window.setScene(scene);
