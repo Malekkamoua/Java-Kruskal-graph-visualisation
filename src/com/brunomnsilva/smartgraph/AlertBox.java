@@ -6,6 +6,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -20,6 +21,8 @@ public class AlertBox {
         Label label = new Label();
         label.setText(message);
         Button close_btn = new Button("close alert");
+        close_btn.setStyle("-fx-background-color:#72bb53;");
+        close_btn.setTextFill(Color.WHITE);
         close_btn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
@@ -28,6 +31,7 @@ public class AlertBox {
         });
 
         VBox layout = new VBox(20);
+        layout.setStyle("-fx-alignment: center;");
         layout.getChildren().addAll(label,close_btn);
         Scene scene = new Scene(layout);
 
