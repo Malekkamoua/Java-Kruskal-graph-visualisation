@@ -10,7 +10,9 @@ import javafx.collections.ObservableList;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import com.brunomnsilva.smartgraph.graphview.SmartPlacementStrategy;
@@ -49,9 +51,16 @@ public class Main extends Application {
         home_scene_btn.setOnAction(e -> primaryStage.setScene(insert_nodesSize_scene));
         TextField node_textField = new TextField();
         TextField nodeName_textField = new TextField();
-        Label label_insert_nodesSize_scene = new Label("Nodes' size", node_textField);
-        Button insert_nodesSize_scene_btn = new Button("Nodes' names");
-
+        nodeName_textField.setStyle("-fx-max-width: 312");
+        Label label_insert_nodeSize_scene_label = new Label("How many nodes ?");
+        Label label_link_node = new Label("Link your nodes");
+        label_insert_nodeSize_scene_label.setTextFill(Color.WHITE);
+        Label label_insert_nodesSize_scene = new Label( "",node_textField );
+        label_insert_nodesSize_scene.setStyle("-fx-max-width: 312");
+        Button insert_nodesSize_scene_btn = new Button("Next");
+        insert_nodesSize_scene_btn.setStyle("-fx-background-color:#fca311; -fx-max-width:125; -fx-font-size: 16;-fx-start-margin: 50px;-fx-font-family: Arial");
+        insert_nodesSize_scene_btn.setTextFill(Color.WHITE);
+        insert_nodesSize_scene_btn.setTranslateY(30);
         insert_nodesSize_scene_btn.setOnAction(e -> {
             System.out.println(node_textField.getText());
             boolean result = is_int(node_textField.getText());
@@ -61,9 +70,13 @@ public class Main extends Application {
                 primaryStage.setScene(nodeName_scene);
             }
         });
+        Button begin_button_welcome_scene = new Button("Begin");
+        begin_button_welcome_scene.setOnAction(e-> primaryStage.setScene(insert_nodesSize_scene));
 
-        Label label_nodeName_scene = new Label("Nodes' Name");
-        Button nodeName_add_item = new Button("Ajouter");
+        Label label_nodeName_scene = new Label("Name your nodes :");
+        label_nodeName_scene.setTextFill(Color.WHITE);
+        Button nodeName_add_item = new Button("Add");
+
 
         Button nodeName_scene_btn = new Button("kruskal");
         nodeName_scene_btn.setDisable(true);
@@ -137,8 +150,8 @@ public class Main extends Application {
             System.out.println("Destination " + destination_index);
         });
 
-        Button add_btn = new Button("Add item");
-        Button delete_btn = new Button("Delete selected");
+        Button add_btn = new Button("ADD");
+        Button delete_btn = new Button("DEL");
 
         add_btn.setOnAction(e -> addArete());
         delete_btn.setOnAction(e -> deleteArete());
@@ -206,22 +219,61 @@ public class Main extends Application {
             });
         });
         //welcome_scene + layout + button+ label
-        Label label_welcome_scene = new Label("Kruskal's Algorithme");
-        Button begin_button_welcome_scene = new Button("Begin");
-        VBox layout_welcome_scene = new VBox(20);
+        Label label_welcome_scene = new Label("Kruskal's Algorithm");
+        label_welcome_scene.setStyle("-fx-font-family: 'Bell MT'; -fx-font-size: 55px;");
+        label_welcome_scene.setTextFill(Color.WHITE);
+        label_welcome_scene.snapPositionY(35);
+        begin_button_welcome_scene.setStyle("-fx-background-color:#fca311; -fx-max-width:125; -fx-font-size: 20;-fx-start-margin: 50px;-fx-font-family: Arial");
+        begin_button_welcome_scene.setTextFill(Color.WHITE);
+        VBox layout_welcome_scene = new VBox(40);
+        layout_welcome_scene.setStyle("-fx-alignment: center; -fx-background-color:#14213d");
         layout_welcome_scene.getChildren().addAll(label_welcome_scene,begin_button_welcome_scene);
         welcome_scene = new Scene(layout_welcome_scene, 512,340);
         VBox layout_scene1 = new VBox(20);
-        layout_scene1.getChildren().addAll(table, source, nodesList_source, destination, nodesList_destination, poids_textField, add_btn, delete_btn, run_algo);
-        home_scene = new Scene(layout_scene1, 800, 600);
+        table.setStyle("-fx-max-width: 462;-fx-max-height: 200");
+        nodesList_source.setValue("Source");
+        HBox layout_for_source_destionation = new HBox(15);
+        HBox layout_for_distance_add_del = new HBox(10);
+        layout_for_source_destionation.setTranslateX(29);
+        layout_for_distance_add_del.setTranslateX(29);
+        poids_textField.setStyle("-fx-min-width:350 ");
+        add_btn.setStyle("-fx-max-width: 50;-fx-background-color:#72bb53;");
+        add_btn.setTextFill(Color.WHITE);
+        delete_btn.setStyle("-fx-max-width: 50;-fx-background-color:#bb285c ");
+        delete_btn.setTextFill(Color.WHITE);
+        run_algo.setStyle("-fx-min-width: 452;-fx-background-color:#fca311");
+        run_algo.setTextFill(Color.WHITE);
+        label_link_node.setTextFill(Color.WHITE);
+        label_link_node.setStyle("-fx-font-size: 40");
+        nodesList_source.setStyle("-fx-min-width: 200");
+        nodesList_destination.setStyle("-fx-min-width: 200");
+        layout_for_source_destionation.getChildren().addAll( nodesList_source, nodesList_destination);
+        layout_for_distance_add_del.getChildren().addAll(poids_textField, add_btn, delete_btn);
+        layout_scene1.getChildren().addAll(label_link_node,table, layout_for_source_destionation,layout_for_distance_add_del, run_algo);
+        layout_scene1.setStyle("-fx-alignment: center; -fx-background-color:#14213d");
+        home_scene = new Scene(layout_scene1, 512, 460);
 
         VBox layout_insert_nodesSize_scene = new VBox(20);
-        layout_insert_nodesSize_scene.getChildren().addAll(label_insert_nodesSize_scene, node_textField, insert_nodesSize_scene_btn);
-        insert_nodesSize_scene = new Scene(layout_insert_nodesSize_scene, 800, 600);
+        layout_insert_nodesSize_scene.getChildren().addAll(label_insert_nodeSize_scene_label,label_insert_nodesSize_scene, node_textField, insert_nodesSize_scene_btn);
+        layout_insert_nodesSize_scene.setStyle("-fx-alignment: center;-fx-background-color: #14213d");
+        label_insert_nodeSize_scene_label.setStyle("-fx-font-size: 35;-fx-font-family: Arial;");
+        label_insert_nodeSize_scene_label.setTranslateY(-40);
+        insert_nodesSize_scene = new Scene(layout_insert_nodesSize_scene, 512, 340);
+
 
         VBox layout_nodeName_scene = new VBox(20);
-        layout_nodeName_scene.getChildren().addAll(label_nodeName_scene, nodeName_textField, nodeName_add_item, nodeName_scene_btn);
-        nodeName_scene = new Scene(layout_nodeName_scene, 800, 600);
+        HBox layout_for_horizontal_button = new HBox(10);
+        layout_for_horizontal_button.getChildren().addAll(nodeName_add_item,nodeName_scene_btn);
+        layout_for_horizontal_button.setStyle("-fx-alignment: center;");
+        layout_nodeName_scene.getChildren().addAll(label_nodeName_scene, nodeName_textField,layout_for_horizontal_button);
+        layout_nodeName_scene.setStyle("-fx-alignment: center;-fx-background-color: #14213d");
+        nodeName_add_item.setStyle("-fx-background-color:#fca311; -fx-min-width:138;-fx-max-height: 40; -fx-font-size: 13;-fx-start-margin: 50px;-fx-font-family: Arial");
+        nodeName_scene_btn.setStyle("-fx-background-color:#fca311; -fx-min-width:138;-fx-max-height: 40; -fx-font-size: 13;-fx-start-margin: 50px;-fx-font-family: Arial");
+        layout_for_horizontal_button.setTranslateY(15);
+        label_nodeName_scene.setStyle("-fx-font-size: 35;-fx-font-family: Arial");
+        label_nodeName_scene.setTranslateY(-30);
+        label_nodeName_scene.setTextFill(Color.WHITE);
+        nodeName_scene = new Scene(layout_nodeName_scene, 512, 340);
 
         primaryStage.setScene(welcome_scene);
         primaryStage.show();
