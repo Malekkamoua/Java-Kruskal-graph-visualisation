@@ -20,7 +20,7 @@ public class AlertBox {
 
         Label label = new Label();
         label.setText(message);
-        Button close_btn = new Button("close alert");
+        Button close_btn = new Button("close");
         close_btn.setStyle("-fx-background-color:#72bb53;");
         close_btn.setTextFill(Color.WHITE);
         close_btn.setOnAction(new EventHandler<ActionEvent>() {
