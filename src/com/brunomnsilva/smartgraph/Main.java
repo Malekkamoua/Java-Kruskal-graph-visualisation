@@ -153,12 +153,13 @@ public class Main extends Application {
             int result = Kruskal(aretes);
             AlertBox.display("Alert box", "Poids minimal : " + result);
 
-            Graph<String, String> g = build_sample_digraph();
+            Graph<String, String> g_min = build_sample_digraph();
+            Graph<String, String> g = build_graph();
 
             SmartPlacementStrategy strategy = new SmartCircularSortedPlacementStrategy();
-            SmartGraphPanel<String, String> graphView = new SmartGraphPanel<>(g, strategy);
+            SmartGraphPanel<String, String> graphView_min = new SmartGraphPanel<>(g_min, strategy);
 
-            Scene scene = new Scene(new SmartGraphDemoContainer(graphView), 1024, 768);
+            Scene scene = new Scene(new SmartGraphDemoContainer(graphView_min), 1024, 768);
 
             Stage stage = new Stage(StageStyle.DECORATED);
             stage.setTitle("Poids minimal"+result);
@@ -166,6 +167,30 @@ public class Main extends Application {
             stage.setMinWidth(800);
             stage.setScene(scene);
             stage.show();
+
+            graphView_min.init();
+
+            graphView_min.setVertexDoubleClickAction(graphVertex -> {
+                if( !graphVertex.removeStyleClass("myVertex") ) {
+                    graphVertex.addStyleClass("myVertex");
+                }
+
+            });
+            graphView_min.setEdgeDoubleClickAction(graphEdge -> {
+                graphEdge.setStyle("-fx-stroke: black; -fx-stroke-width: 2;");
+
+            });
+
+            SmartGraphPanel<String, String> graphView = new SmartGraphPanel<>(g, strategy);
+
+            Scene scene2 = new Scene(new SmartGraphDemoContainer(graphView), 1024, 768);
+
+            Stage stage2 = new Stage(StageStyle.DECORATED);
+            stage2.setTitle("Graph initial");
+            stage2.setMinHeight(600);
+            stage2.setMinWidth(800);
+            stage2.setScene(scene2);
+            stage2.show();
 
             graphView.init();
 
@@ -218,6 +243,22 @@ public class Main extends Application {
         }
 
         for (Arete ar : minimal_arete) {
+            g.insertEdge(ar.getSource(), ar.getDestination(), ar.getSource()+""+ar.getDestination());
+
+        }
+
+        return g;
+    }
+
+    private Graph<String, String> build_graph() {
+
+        Digraph<String, String> g = new DigraphEdgeList<>();
+
+        for (String value : nodesArray) {
+            g.insertVertex(value);
+        }
+
+        for (Arete ar : aretes) {
             g.insertEdge(ar.getSource(), ar.getDestination(), ar.getSource()+""+ar.getDestination());
 
         }
