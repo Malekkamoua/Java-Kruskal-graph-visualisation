@@ -45,7 +45,7 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) {
 
-        primaryStage.setTitle("New window");
+        primaryStage.setTitle("Kruskal algorithm");
 
         Button home_scene_btn = new Button("Please insert your nodes' number");
         home_scene_btn.setOnAction(e -> primaryStage.setScene(insert_nodesSize_scene));
