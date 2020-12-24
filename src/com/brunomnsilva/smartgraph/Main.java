@@ -172,7 +172,7 @@ public class Main extends Application {
         run_algo.setOnAction(e -> {
 
             int result = Kruskal(aretes);
-            AlertBox.display("Alert box", "Poids minimal : " + result);
+            AlertBox.display("Alert box", "Minimal weight : " + result);
 
             Graph<String, String> g_min = build_sample_digraph();
             Graph<String, String> g = build_graph();
